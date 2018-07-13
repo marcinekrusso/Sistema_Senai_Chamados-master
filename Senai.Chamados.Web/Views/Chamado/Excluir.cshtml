@@ -1,0 +1,22 @@
+﻿@model Senai.Chamados.Web.ViewModels.Chamado.ChamadoViewModel
+@{
+                /**/
+
+                ViewBag.Title = "Excluir";
+}
+
+<h2>Excluir Chamado</h2>
+
+@using (Html.BeginForm("Excluir", "Chamado", new { @class = "form-signin" }))
+{
+
+    @Html.HiddenFor(x => x.Id);
+    @Html.AntiForgeryToken();
+
+
+    <br /><br />
+   
+        <p>Pode isso Arrrrrnaldo?</p>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Excluir</button>
+}

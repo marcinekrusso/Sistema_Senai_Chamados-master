@@ -1,0 +1,59 @@
+﻿@using Senai.Chamados.Web.Helpers
+@model Senai.Chamados.Web.ViewModels.Grafico.ListaGraficoViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>Pizztalas</h1>
+        <p>OLHA OS BAGULHOS AI #$%$##</p>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Gráficos de status</div>
+    <div class="panel-body">
+        <div class="col-lg-6">
+            <canvas id="pie-chart-status" width="800" height="450"></canvas>
+        </div>
+        <div class="col-lg-6">
+            <canvas id="bar-chart-status" width="800" height="450"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Gráficos de Setor</div>
+    <div class="panel-body">
+        <div class="col-lg-6">
+            <canvas id="pie-chart-setor" width="800" height="450"></canvas>
+        </div>
+        <div class="col-lg-6">
+            <canvas id="bar-chart-setor" width="800" height="450"></canvas>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script src="~/Scripts/Chart.util.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+           @Html.GerarGraficoChartJs("bar-chart-status", @Html.Raw(Json.Encode(Model.GraficoStatus.Labels)), @Html.Raw(Json.Encode(Model.GraficoStatus.Data)), "polarArea")
+
+           @Html.GerarGraficoChartJs("pie-chart-status", @Html.Raw(Json.Encode(Model.GraficoStatus.Labels)), @Html.Raw(Json.Encode(Model.GraficoStatus.Data)), "pie")
+
+           @Html.GerarGraficoChartJs("bar-chart-setor", @Html.Raw(Json.Encode(Model.GraficoSetor.Labels)), @Html.Raw(Json.Encode(Model.GraficoSetor.Data)), "bar")
+
+           @Html.GerarGraficoChartJs("pie-chart-setor", @Html.Raw(Json.Encode(Model.GraficoSetor.Labels)), @Html.Raw(Json.Encode(Model.GraficoSetor.Data)), "pie")
+
+        });
+
+    </script>
+
+}
