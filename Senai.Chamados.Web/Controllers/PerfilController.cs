@@ -18,6 +18,7 @@ namespace Senai.Chamados.Web.Controllers
             return View();
         }
 
+
         [HttpGet]
         public ActionResult AlterarSenha()
         {
