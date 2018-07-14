@@ -13,10 +13,11 @@ using System.Web.Mvc;
 
 namespace Senai.Chamados.Web.Controllers
 {
-   
+
     public class GraficosController : Controller
     {
         // GET: Graficos
+        [Authorize]
         public ActionResult Index()
         {
             try
