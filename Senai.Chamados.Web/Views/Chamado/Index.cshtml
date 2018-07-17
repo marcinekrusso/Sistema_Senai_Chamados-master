@@ -1,15 +1,16 @@
 ﻿
 @model Senai.Chamados.Web.ViewModels.Chamado.ListaChamadoViewModel
+@using System.Web.Optimization
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 @section Styles{
-    <link href="~/Content/DataTables/media/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <link href="~/Content/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/DataTables/extensions/Buttons/css/buttons.dataTables.min.css" rel="stylesheet" />
-    <link href="~/Content/DataTables/extensions/Buttons/css/buttons.bootstrap.min.css" rel="stylesheet" />
-
+    @*<link href="~/Content/DataTables/media/css/jquery.dataTables.min.css" rel="stylesheet" />
+        <link href="~/Content/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Content/DataTables/extensions/Buttons/css/buttons.dataTables.min.css" rel="stylesheet" />
+        <link href="~/Content/DataTables/extensions/Buttons/css/buttons.bootstrap.min.css" rel="stylesheet" />*@
+    @Styles.Render("~/bundles/DataTable/css")
 }
 
 <div class="jumbotron">
@@ -33,6 +34,29 @@
         @TempData["Sucesso"]
     </div>
 }
+
+<div class="panel panel-default">
+    <div class="panel-heading">Filtro de Chamados</div>
+    <div class="panel-body">
+        @using (Html.BeginForm("Index", "Chamado", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <div class="form-group">
+                <label for="titulo">Título</label>
+                @Html.TextBox("titulo", "", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label for="setor">Setor</label>
+                @Html.DropDownList("setor", Model.ListaSetores, "Selecione o setor", new { @class = "form-control" })
+            </div>
+
+            <button type="submit" class="btn btn-primary">Filtral</button>
+        }
+    </div>
+
+</div>
+
+
 <table class="table" id="table-chamados">
     <thead>
         <tr>
@@ -41,7 +65,7 @@
             <th>Status</th>
             <th>Data Criação</th>
             <th>
-                    @*<a href="/Chamado/Cadastrar" class="btn btn-primary">Cadastrar</a>*@
+                @*<a href="/Chamado/Cadastrar" class="btn btn-primary">Cadastrar</a>*@
             </th>
         </tr>
     </thead>
@@ -68,51 +92,53 @@
 
 
 @section Scripts{
-    <script src="~/Scripts/DataTables/media/js/jquery.dataTables.min.js"></script>
-    <script src="~/Scripts/DataTables/media/js/dataTables.bootstrap.min.js"></script>
+    @*<script src="~/Scripts/DataTables/media/js/jquery.dataTables.min.js"></script>
+        <script src="~/Scripts/DataTables/media/js/dataTables.bootstrap.min.js"></script>
 
-    <script src="~/Scripts/DataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
-    <script src="~/Scripts/DataTables/extensions/Buttons/js/buttons.html5.min.js"></script>
-    <script src="~/Scripts/DataTables/extensions/Buttons/js/buttons.print.min.js"></script>
-    <script src="~/Scripts/jszip.min.js"></script>
-    <script src="~/Scripts/pdfmake/pdfmake.min.js"></script>
-    <script src="~/Scripts/pdfmake/vfs_fonts.js"></script>
+        <script src="~/Scripts/DataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+        <script src="~/Scripts/DataTables/extensions/Buttons/js/buttons.html5.min.js"></script>
+        <script src="~/Scripts/DataTables/extensions/Buttons/js/buttons.print.min.js"></script>
+        <script src="~/Scripts/jszip.min.js"></script>
+        <script src="~/Scripts/pdfmake/pdfmake.min.js"></script>
+        <script src="~/Scripts/pdfmake/vfs_fonts.js"></script>*@
+        
+    @Scripts.Render("~/bundles/DataTable/js")
+
     <script type="text/javascript">
-        $(document).ready(function () {
+    $(document).ready(function () {
 
-            $("#table-chamados").DataTable({
-                "language":{
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "_MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                },
-                dom: '<"html5buttons"B>LTfgitp',
-                buttons: [
-                    { extend: 'copy' },
-                    { extend: 'csv', title: 'Chamados' },
-                    { extend: 'excel', title: 'Chamados' },
-                    { extend: 'pdf', title: 'Chamados' }
-                ]
-            });
+        $("#table-chamados").DataTable({
+        "language":{
+            "sEmptyTable": "Nenhum registro encontrado",
+            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sInfoThousands": ".",
+            "sLengthMenu": "_MENU_ resultados por página",
+            "sLoadingRecords": "Carregando...",
+            "sProcessing": "Processando...",
+            "sZeroRecords": "Nenhum registro encontrado",
+            "sSearch": "Pesquisar",
+            "oPaginate": {
+            "sNext": "Próximo",
+            "sPrevious": "Anterior",
+            "sFirst": "Primeiro",
+            "sLast": "Último"
+            },
+            "oAria": {
+            "sSortAscending": ": Ordenar colunas de forma ascendente",
+            "sSortDescending": ": Ordenar colunas de forma descendente"
+            }
+            },
+        dom: '<"html5buttons"B>LTfgitp',
+        buttons: [
+            { extend: 'copy' },
+            { extend: 'csv', title: 'Chamados' },
+            { extend: 'excel', title: 'Chamados' },
+            { extend: 'pdf', title: 'Chamados' }
+        ]});
 
-        })
+    })
     </script>
 }
